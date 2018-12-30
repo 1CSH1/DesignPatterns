@@ -1,5 +1,9 @@
 package com.liebrother.designpatterns.lsp;
 
+/**
+ * @author LieBrother
+ * @date 2018/12/28
+ */
 public class LSPTest {
 
     public static void main(String[] args) {
