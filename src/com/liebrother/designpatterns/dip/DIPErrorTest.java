@@ -21,13 +21,13 @@ public class DIPErrorTest {
 
         // 如果这时 A 老板裁掉 A 员工，换了个 C 员工呢？要把 A 老板的类中的 StaffA 去掉，改为 StaffC，
         // 还要新增一个 StaffC 类，这时是非常费劲的，仅仅是因为我们破坏了第三条规则。
-
-
-
     }
 
 }
 
+/**
+ * 错误的示范
+ */
 abstract class Boss {
 
     abstract void support();
@@ -52,9 +52,6 @@ abstract class Staff {
     }
 }
 
-/**
- * 错误的示范
- */
 class BossA extends Boss {
 
     private StaffA staffA;
