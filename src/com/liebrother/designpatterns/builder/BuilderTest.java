@@ -86,7 +86,7 @@ class Director {
      * 生产奔驰
      */
     public MercedesCar buildMercedesCar() {
-        mercedesCarBuilder.buildCar();
+        mercedesCarBuilder.buildCar();   //
         return (MercedesCar) mercedesCarBuilder.getCar();
     }
 
