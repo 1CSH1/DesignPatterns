@@ -3,75 +3,85 @@ package com.liebrother.designpatterns.builder;
 public class NoBuilderTest {
 
     public static void main(String[] args) {
-        BMWCar bmwCar = new BMWCar();
-        // 安装镜子
-        bmwCar.installMirror();
-        // 安装方向盘
-        bmwCar.installSteeringWheel();
-        // 安装轮胎
-        bmwCar.installWheel();
+        DongGuaPaiGuSoup dongGuaPaiGuSoup = new DongGuaPaiGuSoup();
+        // 加排骨
+        dongGuaPaiGuSoup.addMeat();
+        // 熬制 30 分钟
+        dongGuaPaiGuSoup.waitMinute(30);
+        // 加冬瓜
+        dongGuaPaiGuSoup.addVegetables();
+        // 熬制 10 分钟
+        dongGuaPaiGuSoup.waitMinute(10);
+        // 加盐加香菜
+        dongGuaPaiGuSoup.addIngredients();
 
-        MercedesCar mercedesCar = new MercedesCar();
-        // 安装轮胎
-        mercedesCar.installWheel();
-        // 安装方向盘
-        mercedesCar.installSteeringWheel();
-        // 安装镜子
-        mercedesCar.installMirror();
+        BanLiPaiGuSoup banLiPaiGuSoup = new BanLiPaiGuSoup();
+        // 加排骨
+        banLiPaiGuSoup.addMeat();
+        // 加板栗
+        banLiPaiGuSoup.addVegetables();
+        // 熬制 40 分钟
+        banLiPaiGuSoup.waitMinute(40);
+        // 加盐
+        banLiPaiGuSoup.addIngredients();
     }
 
 }
+interface Soup {
 
-/**
- * 汽车
- */
-abstract class Car {
-
-    abstract void installWheel();
-
-    abstract void installSteeringWheel();
-
-    abstract void installMirror();
+    /** 加肉 */
+    void addMeat();
+    /** 加菜 */
+    void addVegetables();
+    /** 熬制 */
+    void waitMinute(int minute);
+    /** 加配料 */
+    void addIngredients();
 
 }
 
-/**
- * 宝马汽车
- */
-class BMWCar extends Car {
+class DongGuaPaiGuSoup implements Soup {
 
     @Override
-    public void installWheel() {
-        System.out.println("宝马车安装轮胎");
+    public void addMeat() {
+        System.out.println("加排骨");
     }
 
     @Override
-    public void installSteeringWheel() {
-        System.out.println("宝马车安装反向盘");
+    public void addVegetables() {
+        System.out.println("加冬瓜");
     }
 
     @Override
-    public void installMirror() {
-        System.out.println("宝马车安装镜子");
+    public void waitMinute(int minute) {
+        System.out.println("熬制 " + minute + " 分钟");
+    }
+
+    @Override
+    public void addIngredients() {
+        System.out.println("加盐、加香菜");
     }
 }
 
-/**
- * 奔驰汽车
- */
-class MercedesCar extends Car {
+class BanLiPaiGuSoup implements Soup {
+
     @Override
-    public void installWheel() {
-        System.out.println("奔驰车安装轮胎");
+    public void addMeat() {
+        System.out.println("加排骨");
     }
 
     @Override
-    public void installSteeringWheel() {
-        System.out.println("奔驰车安装反向盘");
+    public void addVegetables() {
+        System.out.println("加板栗");
     }
 
     @Override
-    public void installMirror() {
-        System.out.println("奔驰车安装镜子");
+    public void waitMinute(int minute) {
+        System.out.println("熬制 " + minute + " 分钟");
+    }
+
+    @Override
+    public void addIngredients() {
+        System.out.println("加盐");
     }
 }

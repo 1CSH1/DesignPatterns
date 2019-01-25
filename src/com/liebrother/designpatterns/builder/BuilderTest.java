@@ -4,66 +4,66 @@ public class BuilderTest {
 
     public static void main(String[] args) {
         Director director = new Director();
-        director.buildBMWCar();
-        director.buildMercedesCar();
+        director.buildDongGuaPaiGuSoup();
+        director.buildBanLiPaiGuSoup();
     }
 
 }
 
-/**
- * 汽车建造者
- */
-interface CarBuilder {
-
-    void buildCar();
-
-    Car getCar();
-
+interface SoupBuilder {
+    void buildSoup();
+    Soup getSoup();
 }
 
 /**
- * 宝马汽车建造者
+ * 冬瓜排骨汤建造者
  */
-class BMWCarBuilder implements CarBuilder {
+class DongGuaPaiGuSoupBuilder implements SoupBuilder {
 
-    private BMWCar car = new BMWCar();
+    private DongGuaPaiGuSoup dongGuaPaiGuSoup = new DongGuaPaiGuSoup();
 
     @Override
-    public void buildCar() {
-        // 安装镜子
-        car.installMirror();
-        // 安装方向盘
-        car.installSteeringWheel();
-        // 安装轮胎
-        car.installWheel();
+    public void buildSoup() {
+        // 加排骨
+        dongGuaPaiGuSoup.addMeat();
+        // 熬制 30 分钟
+        dongGuaPaiGuSoup.waitMinute(30);
+        // 加冬瓜
+        dongGuaPaiGuSoup.addVegetables();
+        // 熬制 10 分钟
+        dongGuaPaiGuSoup.waitMinute(10);
+        // 加盐加香菜
+        dongGuaPaiGuSoup.addIngredients();
     }
 
     @Override
-    public Car getCar() {
-        return car;
+    public Soup getSoup() {
+        return dongGuaPaiGuSoup;
     }
 }
 
 /**
- * 奔驰汽车建造者
+ * 板栗排骨汤建造者
  */
-class MercedesCarBuilder implements CarBuilder {
+class BanLiPaiGuSoupBuilder implements SoupBuilder {
 
-    private MercedesCar car = new MercedesCar();
+    BanLiPaiGuSoup banLiPaiGuSoup = new BanLiPaiGuSoup();
 
     @Override
-    public void buildCar() {
-        // 安装轮胎
-        car.installWheel();
-        // 安装方向盘
-        car.installSteeringWheel();
-        // 安装镜子
-        car.installMirror();
+    public void buildSoup() {
+        // 加排骨
+        banLiPaiGuSoup.addMeat();
+        // 加板栗
+        banLiPaiGuSoup.addVegetables();
+        // 熬制 40 分钟
+        banLiPaiGuSoup.waitMinute(40);
+        // 加盐
+        banLiPaiGuSoup.addIngredients();
     }
 
     @Override
-    public Car getCar() {
-        return car;
+    public Soup getSoup() {
+        return banLiPaiGuSoup;
     }
 }
 
@@ -71,23 +71,23 @@ class MercedesCarBuilder implements CarBuilder {
  * 生产方
  */
 class Director {
-    private BMWCarBuilder bmwCarBuilder = new BMWCarBuilder();
-    private MercedesCarBuilder mercedesCarBuilder = new MercedesCarBuilder();
+    private DongGuaPaiGuSoupBuilder dongGuaPaiGuSoupBuilder = new DongGuaPaiGuSoupBuilder();
+    private BanLiPaiGuSoupBuilder banLiPaiGuSoupBuilder = new BanLiPaiGuSoupBuilder();
 
     /**
-     * 生产宝马
+     * 熬制冬瓜排骨汤
      */
-    public BMWCar buildBMWCar() {
-        bmwCarBuilder.buildCar();
-        return (BMWCar) bmwCarBuilder.getCar();
+    public DongGuaPaiGuSoup buildDongGuaPaiGuSoup() {
+        dongGuaPaiGuSoupBuilder.buildSoup();
+        return (DongGuaPaiGuSoup) dongGuaPaiGuSoupBuilder.getSoup();
     }
 
     /**
-     * 生产奔驰
+     * 熬制板栗排骨汤
      */
-    public MercedesCar buildMercedesCar() {
-        mercedesCarBuilder.buildCar();
-        return (MercedesCar) mercedesCarBuilder.getCar();
+    public BanLiPaiGuSoup buildBanLiPaiGuSoup() {
+        banLiPaiGuSoupBuilder.buildSoup();
+        return (BanLiPaiGuSoup) banLiPaiGuSoupBuilder.getSoup();
     }
 
 }
