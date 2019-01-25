@@ -3,6 +3,7 @@ package com.liebrother.designpatterns.builder;
 public class NoBuilderTest {
 
     public static void main(String[] args) {
+        // 熬制冬瓜排骨汤
         DongGuaPaiGuSoup dongGuaPaiGuSoup = new DongGuaPaiGuSoup();
         // 加排骨
         dongGuaPaiGuSoup.addMeat();
@@ -15,6 +16,7 @@ public class NoBuilderTest {
         // 加盐加香菜
         dongGuaPaiGuSoup.addIngredients();
 
+        // 熬制板栗排骨汤
         BanLiPaiGuSoup banLiPaiGuSoup = new BanLiPaiGuSoup();
         // 加排骨
         banLiPaiGuSoup.addMeat();
@@ -27,6 +29,10 @@ public class NoBuilderTest {
     }
 
 }
+
+/**
+ * 煲汤接口
+ */
 interface Soup {
 
     /** 加肉 */
@@ -40,6 +46,9 @@ interface Soup {
 
 }
 
+/**
+ * 冬瓜排骨汤
+ */
 class DongGuaPaiGuSoup implements Soup {
 
     @Override
@@ -63,6 +72,9 @@ class DongGuaPaiGuSoup implements Soup {
     }
 }
 
+/**
+ * 板栗排骨汤
+ */
 class BanLiPaiGuSoup implements Soup {
 
     @Override

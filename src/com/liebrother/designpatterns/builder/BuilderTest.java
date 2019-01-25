@@ -4,12 +4,17 @@ public class BuilderTest {
 
     public static void main(String[] args) {
         Director director = new Director();
+        // 熬制冬瓜排骨汤
         director.buildDongGuaPaiGuSoup();
+        // 熬制板栗排骨汤
         director.buildBanLiPaiGuSoup();
     }
 
 }
 
+/**
+ * 煲汤建造接口
+ */
 interface SoupBuilder {
     void buildSoup();
     Soup getSoup();
