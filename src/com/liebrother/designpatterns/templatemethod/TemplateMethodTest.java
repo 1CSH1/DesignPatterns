@@ -12,7 +12,6 @@ public class TemplateMethodTest {
 
 }
 
-
 /**
  * 定义鞋子制造的工序框架
  */
