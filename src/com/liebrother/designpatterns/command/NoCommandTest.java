@@ -12,6 +12,7 @@ public class NoCommandTest {
         TechnicalManager1 technicalManager2 = new TechnicalManager1("大明");
         technicalManager2.setDeveloper(xiaoMing);
         technicalManager2.action(requirement, "develop");
+        System.out.println("开发了 2 天，需求变故，需要暂停。。。");
         technicalManager2.action(requirement, "suspend");
     }
 

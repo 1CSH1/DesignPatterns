@@ -14,7 +14,7 @@ public class CommandTest {
         TechnicalManager2 technicalManager = new TechnicalManager2("大明");
         technicalManager.setCommand(developCommand);
         technicalManager.action(requirement);
-
+        System.out.println("开发了 2 天，需求变故，需要暂停。。。");
         technicalManager.setCommand(suspendCommand);
         technicalManager.action(requirement);
 
