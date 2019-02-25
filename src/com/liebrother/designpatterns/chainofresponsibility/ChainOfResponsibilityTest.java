@@ -13,8 +13,10 @@ public class ChainOfResponsibilityTest {
         TeamLeader teamLeader = new TeamLeader("老刚");
         DepartMentManager departMentManager = new DepartMentManager("老孙");
         HR hr = new HR("老刘");
+        // 设置面试流程
         teamLeader.setNextInterviewer(departMentManager);
         departMentManager.setNextInterviewer(hr);
+        // 开始面试
         teamLeader.handleInterview(interviewee);
     }
 
@@ -138,7 +140,6 @@ class DepartMentManager extends Interviewer {
  */
 class HR extends Interviewer {
 
-
     public HR(String name) {
         super(name);
     }
@@ -149,7 +150,6 @@ class HR extends Interviewer {
         interviewee.setHrOpinion(new Random().nextBoolean());
         if (interviewee.isHrOpinion()) {
             System.out.println("[" + interviewee.getName() + "]同学HR轮面试通过, 恭喜拿到 Offer");
-//            this.nextInterviewer.handleInterview(interviewee);
         } else {
             System.out.println("[" + interviewee.getName() + "]同学HR轮面试不通过");
         }
@@ -157,6 +157,7 @@ class HR extends Interviewer {
 }
 
 /*
+打印结果：
 组长[老刚]面试[小明]同学
 [小明]同学组长轮面试通过
 部门经理[老孙]面试[小明]同学
