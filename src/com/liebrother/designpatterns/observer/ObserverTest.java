@@ -1,6 +1,7 @@
 package com.liebrother.designpatterns.observer;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -10,151 +11,118 @@ import java.util.List;
 public class ObserverTest {
 
     public static void main(String[] args) {
-        Policeman thPol = new TianHePoliceman();
-        Policeman hpPol = new HuangPuPoliceman();
+        User user = new User("小明");
+        Friend friend1 = new Friend("小红");
+        Friend friend2 = new Friend("小东");
+        user.addObserver(friend1);
+        user.addObserver(friend2);
+        user.sendMessage("今天真开心");
+        user.removeObserver(friend1);
+        user.sendMessage("希望明天也像今天一样开心");
 
-        Citizen citizen = new HuangPuCitizen(hpPol);
-        citizen.sendMessage("unnormal");
-        citizen.sendMessage("normal");
+        User2 user2 = new User2("小明");
+        User2 xiaoHong = new User2("小红");
+        User2 xiaoDong = new User2("小东");
 
-        citizen = new TianHeCitizen(thPol);
-        citizen.sendMessage("normal");
-        citizen.sendMessage("unnormal");
+        user2.addObserver(xiaoHong);
+        user2.addObserver(xiaoDong);
 
+        user2.sendMessage("今天真开心");
     }
 
 }
 
-abstract class Kettle {
 
-    protected BoiledWater boiledWater;
 
-    abstract void isBoiled();
-
-    public void register(BoiledWater boiledWater) {
-        this.boiledWater = boiledWater;
-    }
-
+interface Observable {
+    void addObserver(Observer observer);
+    void removeObserver(Observer observer);
+    void notifyObservers(String message);
 }
 
-class JiuYangKettle extends Kettle {
-
-    @Override
-    void isBoiled() {
-        this.boiledWater.action(this);
-    }
+interface Observer {
+    void update(String name, String message);
 }
 
-interface BoiledWater {
+class User implements Observable {
 
-    void action(Kettle kettle);
+    private List<Observer> friends;
+    private String name;
 
-}
-
-class Mom implements BoiledWater {
-
-    @Override
-    public void action(Kettle kettle) {
-
+    public User(String name) {
+        this.name = name;
+        this.friends = new LinkedList<>();
     }
 
-}
-
-abstract class Citizen {
-
-    List pols;
-
-    String help = "normal";
-
-    public void setHelp(String help) {
-        this.help = help;
-    }
-
-    public String getHelp() {
-        return this.help;
-    }
-
-    abstract void sendMessage(String help);
-
-    public void setPolicemen() {
-        this.pols = new ArrayList();
-    }
-
-    public void register(Policeman pol) {
-        this.pols.add(pol);
-    }
-
-    public void unRegister(Policeman pol) {
-        this.pols.remove(pol);
-    }
-}
-
-interface Policeman {
-
-    void action(Citizen ci);
-}
-
-class HuangPuCitizen extends Citizen {
-
-    public HuangPuCitizen(Policeman pol) {
-        setPolicemen();
-        register(pol);
+    public void sendMessage(String message) {
+        this.notifyObservers(message);
     }
 
     @Override
-    public void sendMessage(String help) {
-        setHelp(help);
-        for(int i = 0; i < pols.size(); i++) {
-            Policeman pol = (Policeman) pols.get(i);
-            //通知警察行动
-            pol.action(this);
-        }
-    }
-}
-
-class TianHeCitizen extends Citizen {
-
-    public TianHeCitizen(Policeman pol) {
-        setPolicemen();
-        register(pol);
+    public void addObserver(Observer observer) {
+        this.friends.add(observer);
     }
 
     @Override
-    public void sendMessage(String help) {
-        setHelp(help);
-        for (int i = 0; i < pols.size(); i++) {
-            Policeman pol = (Policeman) pols.get(i);
-            //通知警察行动
-            pol.action(this);
-        }
+    public void removeObserver(Observer observer) {
+        this.friends.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers(String message) {
+        this.friends.forEach(friend -> {
+            friend.update(this.name, message);
+        });
+    }
+}
+
+class Friend implements Observer {
+
+    private String name;
+
+    public Friend(String name) {
+        this.name = name;
+    }
+    @Override
+    public void update(String name, String message) {
+        System.out.println("【" + this.name + "】看到【" + name + "】发的朋友圈：" + message);
     }
 }
 
 
-class HuangPuPoliceman implements Policeman {
+class User2 implements Observable, Observer {
 
-    @Override
-    public void action(Citizen ci) {
-        String help = ci.getHelp();
-        if (help.equals("normal")) {
-            System.out.println("一切正常, 不用出动");
-        }
-        if (help.equals("unnormal")) {
-            System.out.println("有犯罪行为, 黄埔警察出动!");
-        }
+    private List<Observer> friends;
+    private String name;
+
+    public User2(String name) {
+        this.name = name;
+        this.friends = new LinkedList<>();
     }
-}
-
-class TianHePoliceman implements Policeman {
 
     @Override
-    public void action(Citizen ci) {
-        String help = ci.getHelp();
-        if (help.equals("normal")) {
-            System.out.println("一切正常, 不用出动");
-        }
-        if (help.equals("unnormal")) {
-            System.out.println("有犯罪行为, 天河警察出动!");
-        }
+    public void addObserver(Observer observer) {
+        this.friends.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        this.friends.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers(String message) {
+        this.friends.forEach(friend -> {
+            friend.update(this.name, message);
+        });
+    }
+
+    @Override
+    public void update(String name, String message) {
+        System.out.println("【" + this.name + "】看到【" + name + "】发的朋友圈：" + message);
+    }
+
+    public void sendMessage(String message) {
+        this.notifyObservers(message);
     }
 }
