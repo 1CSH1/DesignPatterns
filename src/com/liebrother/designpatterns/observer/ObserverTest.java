@@ -1,6 +1,7 @@
 package com.liebrother.designpatterns.observer;
 
 import java.util.ArrayList;
+import java.util.EventListener;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,23 +12,33 @@ import java.util.List;
 public class ObserverTest {
 
     public static void main(String[] args) {
-        User user = new User("小明");
-        Friend friend1 = new Friend("小红");
-        Friend friend2 = new Friend("小东");
-        user.addObserver(friend1);
-        user.addObserver(friend2);
-        user.sendMessage("今天真开心");
-        user.removeObserver(friend1);
-        user.sendMessage("希望明天也像今天一样开心");
+        User xiaoMing = new User("小明");
+        Friend xiaoHong = new Friend("小红");
+        Friend xiaoDong = new Friend("小东");
+        xiaoMing.addObserver(xiaoHong);
+        xiaoMing.addObserver(xiaoDong);
+        xiaoMing.sendMessage("今天真开心");
+        // 小红和小明闹别扭了，小红取消订阅小明的朋友圈
+        xiaoMing.removeObserver(xiaoHong);
+        xiaoMing.sendMessage("希望明天也像今天一样开心");
 
-        User2 user2 = new User2("小明");
-        User2 xiaoHong = new User2("小红");
-        User2 xiaoDong = new User2("小东");
+        User2 xiaoMing2 = new User2("小明");
+        User2 xiaoHong2 = new User2("小红");
+        User2 xiaoDong2 = new User2("小东");
+        xiaoMing2.addObserver(xiaoHong2);
+        xiaoMing2.addObserver(xiaoDong2);
+        xiaoMing2.sendMessage("今天真开心");
+        // 小红和小明闹别扭了，小红取消订阅小明的朋友圈
+        xiaoMing2.removeObserver(xiaoHong);
+        xiaoMing2.sendMessage("希望明天也像今天一样开心");
 
-        user2.addObserver(xiaoHong);
-        user2.addObserver(xiaoDong);
+        xiaoHong2.addObserver(xiaoMing2);
+        xiaoHong2.addObserver(xiaoDong2);
+        xiaoHong2.sendMessage("今天和小明吵架了，屏蔽他的朋友圈");
 
-        user2.sendMessage("今天真开心");
+        xiaoDong2.addObserver(xiaoMing2);
+        xiaoDong2.addObserver(xiaoHong2);
+        xiaoDong2.sendMessage("小明和小红吵架了，夹在中间好尴尬");
     }
 
 }
