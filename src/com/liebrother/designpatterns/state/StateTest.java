@@ -29,6 +29,7 @@ public class StateTest {
 
 class User1 {
     /**
+     * none
      * register
      * apply
      * draw
@@ -43,28 +44,42 @@ class User1 {
         this.state = state;
     }
 
-    public void apply() {
-        if ("register".equals(state)) {
-            System.out.println("注册用户，授信申请成功。");
+    public void register() {
+        if ("none".equals(state)) {
+            System.out.println("游客。注册中。。。");
+        }else if ("register".equals(state)) {
+            System.out.println("注册用户。不需要再注册。");
         } else if ("apply".equals(state)) {
-            System.out.println("授信用户，不需要再授信。");
+            System.out.println("授信用户。不需要再注册。");
         } else if ("draw".equals(state)) {
-            System.out.println("借款用户，不需要再授信。");
+            System.out.println("借款用户。不需要再注册。");
+        }
+    }
+
+    public void apply() {
+        if ("none".equals(state)) {
+            System.out.println("游客。不能申请授信。");
+        }else if ("register".equals(state)) {
+            System.out.println("注册用户。授信申请中。。。");
+        } else if ("apply".equals(state)) {
+            System.out.println("授信用户。不需要再授信。");
+        } else if ("draw".equals(state)) {
+            System.out.println("借款用户。不需要再授信。");
         }
     }
 
     public void draw(double money) {
-        if ("register".equals(state)) {
-            System.out.println("注册用户，还没授信，不能借款。");
+        if ("none".equals(state)) {
+            System.out.println("游客。申请借款【" + money + "】元。不能申请借款。");
+        } else if ("register".equals(state)) {
+            System.out.println("注册用户。申请借款【" + money + "】元。还没授信，不能借款。");
         } else if ("apply".equals(state)) {
-            System.out.println("授信用户，借款申请成功。");
+            System.out.println("授信用户。申请借款【" + money + "】元。申请借款中。。。");
         } else if ("draw".equals(state)) {
-            System.out.println("借款用户，可以再次借款，借款申请成功。");
+            System.out.println("授信用户。申请借款【" + money + "】元。申请借款中。。。");
         }
     }
 }
-
-
 
 interface State {
 
@@ -72,24 +87,42 @@ interface State {
 
     void apply();
 
-    void draw();
+    void draw(double money);
+}
+
+class NoneState implements State {
+
+    @Override
+    public void register() {
+        System.out.println("游客。注册中。。。");
+    }
+
+    @Override
+    public void apply() {
+        System.out.println("游客。不能申请授信。");
+    }
+
+    @Override
+    public void draw(double money) {
+        System.out.println("游客。申请借款【" + money + "】元。不能申请借款。");
+    }
 }
 
 class RegisterState implements State {
 
     @Override
     public void register() {
-        System.out.println("已经注册，不需要注册了");
+        System.out.println("注册用户。不需要再注册。");
     }
 
     @Override
     public void apply() {
-        System.out.println("申请授信中。。。");
+        System.out.println("注册用户。授信申请中。。。");
     }
 
     @Override
-    public void draw() {
-        System.out.println("还没授信，不能借款");
+    public void draw(double money) {
+        System.out.println("注册用户。申请借款【" + money + "】元。还没授信，不能借款。");
     }
 }
 
@@ -97,17 +130,17 @@ class ApplyState implements State {
 
     @Override
     public void register() {
-        System.out.println("已经注册，不需要注册了");
+        System.out.println("授信用户。不需要再注册。");
     }
 
     @Override
     public void apply() {
-        System.out.println("已经授信过，不需要再授信");
+        System.out.println("授信用户。不需要再授信。");
     }
 
     @Override
-    public void draw() {
-        System.out.println("申请借款中。。。");
+    public void draw(double money) {
+        System.out.println("授信用户。申请借款【" + money + "】元。申请借款中。。。");
     }
 }
 
@@ -115,17 +148,17 @@ class DrawState implements State {
 
     @Override
     public void register() {
-        System.out.println("已经注册，不需要注册了");
+        System.out.println("借款用户。不需要再注册。");
     }
 
     @Override
     public void apply() {
-        System.out.println("已经授信过，不需要再授信");
+        System.out.println("借款用户。不需要再授信。");
     }
 
     @Override
-    public void draw() {
-        System.out.println("申请借款中。。。");
+    public void draw(double money) {
+        System.out.println("申请借款【" + money + "】元。申请借款中。。。");
     }
 }
 
@@ -145,7 +178,7 @@ class User {
     }
 
     public void draw(double money) {
-        this.state.draw();
+        this.state.draw(money);
     }
 }
 
