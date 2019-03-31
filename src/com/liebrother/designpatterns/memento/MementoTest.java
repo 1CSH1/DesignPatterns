@@ -14,8 +14,8 @@ public class MementoTest {
         deployer.stopApp();
 
         System.out.println("2. 备份旧应用");
-        Space aaa = new Space();
-        aaa.setAppBackup(deployer.createAppBackup());
+        Space space = new Space();
+        space.setAppBackup(deployer.createAppBackup());
 
         System.out.println("3. 拷贝新应用到服务器");
         deployer.setApp(new App("apply-system", "2.0.0"));
@@ -28,7 +28,7 @@ public class MementoTest {
         deployer.stopApp();
 
         System.out.println("6. 回滚旧应用，拷贝备份的旧应用到服务器");
-        deployer.setAppBackup(aaa.getAppBackup());
+        deployer.setAppBackup(space.getAppBackup());
         deployer.showApp();
 
         System.out.println("7. 启动备份的旧应用");
@@ -39,18 +39,8 @@ public class MementoTest {
 
 
 /**
- * 系统发布
- * 1. 关闭应用
- * 2. 备份应用
- * 3. 拷贝新应用
- * 4. 启动应用
- *
- * 回滚
- * 5. 关闭应用
- * 6. 恢复应用
- * 7. 启动应用
+ * 应用实例
  */
-
 class App {
     private String content;
     private String version;
@@ -85,7 +75,9 @@ class App {
     }
 }
 
-
+/**
+ * 应用备份（充当备忘录角色）
+ */
 class AppBackup {
 
     private App app;
@@ -103,40 +95,9 @@ class AppBackup {
     }
 }
 
-class Deployer {
-
-    private App app;
-
-    public App getApp() {
-        return app;
-    }
-
-    public void setApp(App app) {
-        this.app = app;
-    }
-
-    public AppBackup createAppBackup() {
-        return new AppBackup(app);
-    }
-
-    public void setAppBackup(AppBackup appBackup) {
-        this.app = appBackup.getApp();
-    }
-
-    public void showApp() {
-        System.out.println(this.app.toString());
-    }
-
-    public void stopApp() {
-        System.out.println("暂停应用：" + this.app.toString());
-    }
-
-    public void startApp() {
-        System.out.println("启动应用：" + this.app.toString());
-    }
-
-}
-
+/**
+ * 备份空间
+ */
 class Space {
     private AppBackup appBackup;
 
@@ -148,3 +109,48 @@ class Space {
         this.appBackup = appBackup;
     }
 }
+
+/**
+ * 部署应用的同学
+ */
+class Deployer {
+
+    // 要部署的应用
+    private App app;
+
+    public App getApp() {
+        return app;
+    }
+
+    // 设置部署应用
+    public void setApp(App app) {
+        this.app = app;
+    }
+
+    // 创建应用的备份
+    public AppBackup createAppBackup() {
+        return new AppBackup(app);
+    }
+
+    // 从备忘录恢复应用
+    public void setAppBackup(AppBackup appBackup) {
+        this.app = appBackup.getApp();
+    }
+
+    // 显示应用的信息
+    public void showApp() {
+        System.out.println(this.app.toString());
+    }
+
+    // 暂停应用
+    public void stopApp() {
+        System.out.println("暂停应用：" + this.app.toString());
+    }
+
+    // 启动应用
+    public void startApp() {
+        System.out.println("启动应用：" + this.app.toString());
+    }
+
+}
+
