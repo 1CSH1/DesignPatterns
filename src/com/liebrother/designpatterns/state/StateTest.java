@@ -10,6 +10,8 @@ public class StateTest {
         user1.setState(new RegisterState());
         user1.apply();
         user1.draw(1000);
+        user1.setState(new ApplyState());
+        user1.draw(2000);
     }
 
 }
@@ -26,6 +28,9 @@ interface State {
     void draw(double money);
 }
 
+/**
+ * 游客
+ */
 class NoneState implements State {
 
     @Override
@@ -44,6 +49,9 @@ class NoneState implements State {
     }
 }
 
+/**
+ * 注册状态
+ */
 class RegisterState implements State {
 
     @Override
@@ -62,6 +70,9 @@ class RegisterState implements State {
     }
 }
 
+/**
+ * 授信状态
+ */
 class ApplyState implements State {
 
     @Override
@@ -80,6 +91,9 @@ class ApplyState implements State {
     }
 }
 
+/**
+ * 借款状态
+ */
 class DrawState implements State {
 
     @Override
@@ -107,6 +121,10 @@ class User1 {
 
     public void setState(State state) {
         this.state = state;
+    }
+
+    public void register() {
+        this.state.register();
     }
 
     public void apply() {
