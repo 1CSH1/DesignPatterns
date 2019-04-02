@@ -1,10 +1,6 @@
 package com.liebrother.designpatterns.interpreter;
 
-import org.omg.CORBA.OBJ_ADAPTER;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,23 +9,6 @@ import java.util.Map;
  */
 public class InterpreterTest {
     public static void main(String[] args) {
-//        Context ctx = new Context();
-//        ctx.add(new SimpleExpression());
-//        ctx.add(new AdvanceExpression());
-//        ctx.add(new SimpleExpression());
-//
-//        for (Expression eps : ctx.getList()) {
-//            eps.interpret(ctx);
-//        }
-
-//        TranslationSoftware software = new TranslationSoftware();
-//        software.addLanguage(new EnglishLanguage());
-//        software.addLanguage(new JapaneseLanguage());
-
-//        Context context = new Context();
-//        context.setContent("你好，世界");
-//        Language englishLanguage = new EnglishLanguage();
-//        String translateContent = englishLanguage.translate(context);
         Map<String, Object> params = new HashMap<>();
         params.put("name", "小明");
         params.put("job", "Java 工程师");
@@ -218,114 +197,3 @@ class DeleteSQLExpression extends SQLExpression {
         return delete.toString();
     }
 }
-
-/*
-class Context {
-    private String content;
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-}
-
-
-abstract class Language {
-    abstract String translate(Context context);
-}
-
-class EnglishLanguage extends Language {
-
-    @Override
-    public String translate(Context context) {
-        System.out.println("中文转英文解析器。。。");
-        String content = context.getContent();
-        String translateContent = null;
-        // 中文转英文解释器
-        if ("你好，世界".equals(content)) {
-            translateContent = "hello world";
-        }
-        System.out.println("【" + content + "】翻译成英文是：" + translateContent);
-        return translateContent;
-    }
-
-}
-
-class JapaneseLanguage extends Language {
-
-      @Override
-    public String translate(Context context) {
-          System.out.println("中文转日文解析器。。。");
-          String content = context.getContent();
-          String translateContent = null;
-          // 中文转日文解释器
-          if ("你好，世界".equals(content)) {
-              translateContent = "こんにちは、世界";
-          }
-          System.out.println("【" + content + "】翻译成日文是：" + translateContent);
-          return translateContent;
-    }
-
-}
-
-class TranslationSoftware {
-
-    private List<Language> languageList = new ArrayList<>();
-
-    public void addLanguage(Language language) {
-        languageList.add(language);
-    }
-
-}
-
-*/
-
-
-/*
-abstract class Expression {
-
-    abstract void interpret(Context ctx);
-}
-
-class AdvanceExpression extends Expression {
-
-    @Override
-    void interpret(Context ctx) {
-        System.out.println("这是高级解析器!");
-    }
-}
-
-class SimpleExpression extends Expression {
-
-    @Override
-    void interpret(Context ctx) {
-        System.out.println("这是普通解析器!");
-    }
-}
-
-class Context {
-
-    private String content;
-
-    private List<Expression> list = new ArrayList();
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getContent() {
-        return this.content;
-    }
-
-    public void add(Expression eps) {
-        list.add(eps);
-    }
-
-    public List<Expression> getList() {
-        return list;
-    }
-}
-*/
