@@ -9,33 +9,70 @@ import java.util.Map;
  */
 public class InterpreterTest {
     public static void main(String[] args) {
+//        Map<String, Object> params = new HashMap<>();
+//        params.put("name", "小明");
+//        params.put("job", "Java 工程师");
+//        Context context = new Context("user", params, null);
+//        SQLExpression insert = new InsertSQLExpression();
+//        String insertSql = insert.interpret(context);
+//
+//        Map<String, Object> wheres = new HashMap<>();
+//        wheres.put("name", "小明");
+//        Context context1 = new Context("user", null, wheres);
+//        SQLExpression delete = new DeleteSQLExpression();
+//        String deleteSql = delete.interpret(context1);
+//
+//        Map<String, Object> params2 = new HashMap<>();
+//        params2.put("job", "Java 高级工程师");
+//        Map<String, Object> wheres2 = new HashMap<>();
+//        wheres2.put("name", "小明");
+//        Context context2 = new Context("user", params2, wheres2);
+//        SQLExpression update = new UpdateSQLExpression();
+//        String updateSql = update.interpret(context2);
+//
+//        Map<String, Object> wheres3 = new HashMap<>();
+//        wheres3.put("name", "小明");
+//        Context context3 = new Context("user", null, wheres3);
+//        SQLExpression select = new SelectSQLExpression();
+//        String selectSql = select.interpret(context3);
+//
+//
+        Context context = new Context();
+        context.setTableName("user");
+
+        // Insert SQL
         Map<String, Object> params = new HashMap<>();
         params.put("name", "小明");
         params.put("job", "Java 工程师");
-        Context context = new Context("user", params, null);
-        SQLExpression insert = new InsertSQLExpression();
-        String insertSql = insert.interpret(context);
+        context.setParams(params);
+        SQLExpression sqlExpression = new InsertSQLExpression();
+        String sql = sqlExpression.interpret(context);
 
+        // Delete SQL
         Map<String, Object> wheres = new HashMap<>();
         wheres.put("name", "小明");
-        Context context1 = new Context("user", null, wheres);
-        SQLExpression delete = new DeleteSQLExpression();
-        String deleteSql = delete.interpret(context1);
+        context.setParams(null);
+        context.setWheres(wheres);
+        sqlExpression = new DeleteSQLExpression();
+        sql = sqlExpression.interpret(context);
 
-        Map<String, Object> params2 = new HashMap<>();
-        params2.put("job", "Java 高级工程师");
-        Map<String, Object> wheres2 = new HashMap<>();
-        wheres2.put("name", "小明");
-        Context context2 = new Context("user", params2, wheres2);
-        SQLExpression update = new UpdateSQLExpression();
-        String updateSql = update.interpret(context2);
+        // Update SQL
+        params = new HashMap<>();
+        params.put("job", "Java 高级工程师");
+        wheres = new HashMap<>();
+        wheres.put("name", "小明");
+        context.setParams(params);
+        context.setWheres(wheres);
+        sqlExpression = new UpdateSQLExpression();
+        sql = sqlExpression.interpret(context);
 
-        Map<String, Object> wheres3 = new HashMap<>();
-        wheres3.put("name", "小明");
-        Context context3 = new Context("user", null, wheres3);
-        SQLExpression select = new SelectSQLExpression();
-        String selectSql = select.interpret(context3);
-
+        // Select SQL
+        wheres = new HashMap<>();
+        wheres.put("name", "小明");
+        context.setParams(null);
+        context.setWheres(wheres);
+        sqlExpression = new SelectSQLExpression();
+        sql = sqlExpression.interpret(context);
     }
 
 }
@@ -53,15 +90,15 @@ class Context {
     private Map<String, Object> params = new HashMap<>();
     private Map<String, Object> wheres = new HashMap<>();
 
-    public Context(String tableName, Map<String, Object> params, Map<String, Object> wheres) {
-        this.tableName = tableName;
-        if (null != params) {
-            this.params = params;
-        }
-        if (null != wheres) {
-            this.wheres = wheres;
-        }
-    }
+//    public Context(String tableName, Map<String, Object> params, Map<String, Object> wheres) {
+//        this.tableName = tableName;
+//        if (null != params) {
+//            this.params = params;
+//        }
+//        if (null != wheres) {
+//            this.wheres = wheres;
+//        }
+//    }
 
     public String getTableName() {
         return tableName;
@@ -88,6 +125,9 @@ class Context {
     }
 }
 
+/**
+ * Insert SQL 解释器
+ */
 class InsertSQLExpression extends SQLExpression {
 
     @Override
@@ -118,7 +158,9 @@ class InsertSQLExpression extends SQLExpression {
     }
 }
 
-
+/**
+ * Update SQL 解释器
+ */
 class UpdateSQLExpression extends SQLExpression {
 
     @Override
@@ -155,6 +197,9 @@ class UpdateSQLExpression extends SQLExpression {
     }
 }
 
+/**
+ * Select SQL 解释器
+ */
 class SelectSQLExpression extends SQLExpression {
 
     @Override
@@ -176,6 +221,9 @@ class SelectSQLExpression extends SQLExpression {
     }
 }
 
+/**
+ * Delete SQL 解释器
+ */
 class DeleteSQLExpression extends SQLExpression {
 
     @Override
