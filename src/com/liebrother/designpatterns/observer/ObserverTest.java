@@ -29,7 +29,7 @@ public class ObserverTest {
         xiaoMing2.addObserver(xiaoDong2);
         xiaoMing2.sendMessage("今天真开心");
         // 小红和小明闹别扭了，小红取消订阅小明的朋友圈
-        xiaoMing2.removeObserver(xiaoHong);
+        xiaoMing2.removeObserver(xiaoHong2);
         xiaoMing2.sendMessage("希望明天也像今天一样开心");
 
         xiaoHong2.addObserver(xiaoMing2);
