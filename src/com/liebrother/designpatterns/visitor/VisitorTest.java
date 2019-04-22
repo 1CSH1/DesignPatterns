@@ -1,4 +1,4 @@
-package com.liebrother.designpatterns.vistor;
+package com.liebrother.designpatterns.visitor;
 
 import java.util.ArrayList;
 import java.util.List;
