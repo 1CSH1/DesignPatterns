@@ -1,7 +1,5 @@
 package com.liebrother.designpatterns.bridge;
 
-import com.liebrother.designpatterns.srp.SrcOfInterface;
-
 public class BridgeTest {
 
     public static void main(String[] args) {
