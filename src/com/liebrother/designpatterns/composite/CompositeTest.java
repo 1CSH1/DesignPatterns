@@ -10,7 +10,7 @@ import java.util.List;
 public class CompositeTest {
 
     public static void main(String[] args) {
-        // 透明模式
+        // 安全模式
         Leader2 leader1 = new Leader2("大熊");
         Leader2 leader2 = new Leader2("中熊");
         Engineer2 engineer1 = new Engineer2("小熊1");
@@ -23,7 +23,7 @@ public class CompositeTest {
         leader1.display(0);
 
 
-        // 安全模式
+        // 透明模式
         Leader3 leader3 = new Leader3("大熊");
         Leader3 leader31 = new Leader3("中熊");
         Engineer3 engineer31 = new Engineer3("小熊1");
@@ -40,12 +40,11 @@ public class CompositeTest {
 }
 
 /**
- * 透明模式
+ * 安全模式
  */
-abstract class Employer {
+abstract class Employee2 {
 
     private String name;
-    private List<Employer> employers;
 
     public String getName() {
         return name;
@@ -55,37 +54,25 @@ abstract class Employer {
         this.name = name;
     }
 
-    public List<Employer> getEmployers() {
-        return employers;
-    }
-
-    public void setEmployers(List<Employer> employers) {
-        this.employers = employers;
-    }
-
-    public abstract void add(Employer employer);
-
-    public abstract void remove(Employer employer);
-
     public abstract void display(int index);
 
 }
 
-class Leader2 extends Employer {
+class Leader2 extends Employee2 {
+
+    private List<Employee2> employees;
 
     public Leader2(String name) {
         this.setName(name);
-        this.setEmployers(new ArrayList<>());
+        this.employees = new ArrayList<>();
     }
 
-    @Override
-    public void add(Employer employer) {
-        this.getEmployers().add(employer);
+    public void add(Employee2 employee) {
+        this.employees.add(employee);
     }
 
-    @Override
-    public void remove(Employer employer) {
-        this.getEmployers().remove(employer);
+    public void remove(Employee2 employee) {
+        this.employees.remove(employee);
     }
 
     @Override
@@ -94,8 +81,85 @@ class Leader2 extends Employer {
             System.out.print("----");
         }
         System.out.println("领导：" + this.getName());
-        this.getEmployers().forEach(employer -> {
-            employer.display(index + 1);
+        this.employees.forEach(employee -> {
+            employee.display(index + 1);
+        });
+    }
+}
+
+class Engineer2 extends Employee2 {
+
+    public Engineer2(String name) {
+        this.setName(name);
+    }
+
+    @Override
+    public void display(int index) {
+        for(int i = 0; i < index; i++) {
+            System.out.print("----");
+        }
+        System.out.println("工程师：" + this.getName());
+    }
+}
+
+
+/**
+ * 透明模式
+ */
+abstract class Employee3 {
+
+    private String name;
+    private List<Employee3> employees;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Employee3> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee3> employees) {
+        this.employees = employees;
+    }
+
+    public abstract void add(Employee3 employee);
+
+    public abstract void remove(Employee3 employee);
+
+    public abstract void display(int index);
+
+}
+
+class Leader3 extends Employee3 {
+
+    public Leader3(String name) {
+        this.setName(name);
+        this.setEmployees(new ArrayList<>());
+    }
+
+    @Override
+    public void add(Employee3 employee) {
+        this.getEmployees().add(employee);
+    }
+
+    @Override
+    public void remove(Employee3 employee) {
+        this.getEmployees().remove(employee);
+    }
+
+    @Override
+    public void display(int index) {
+        for(int i = 0; i < index; i++) {
+            System.out.print("----");
+        }
+        System.out.println("领导：" + this.getName());
+        this.getEmployees().forEach(employee -> {
+            employee.display(index + 1);
         });
     }
 }
@@ -103,87 +167,23 @@ class Leader2 extends Employer {
 /**
  * 工程师
  */
-class Engineer2 extends Employer {
-
-    public Engineer2(String name) {
-        this.setName(name);
-    }
-
-    @Override
-    public void add(Employer employer) {
-        // 没有下属
-    }
-
-    @Override
-    public void remove(Employer employer) {
-        // 没有下属
-    }
-
-    @Override
-    public void display(int index) {
-        for(int i = 0; i < index; i++) {
-            System.out.print("----");
-        }
-        System.out.println("工程师：" + this.getName());
-    }
-}
-
-
-/**
- * 安全模式
- */
-abstract class Employer2 {
-
-    private String name;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public abstract void display(int index);
-
-}
-
-class Leader3 extends Employer2 {
-
-    private List<Employer2> employers;
-
-    public Leader3(String name) {
-        this.setName(name);
-        this.employers = new ArrayList<>();
-    }
-
-    public void add(Employer2 employer) {
-        this.employers.add(employer);
-    }
-
-    public void remove(Employer2 employer) {
-        this.employers.remove(employer);
-    }
-
-    @Override
-    public void display(int index) {
-        for(int i = 0; i < index; i++) {
-            System.out.print("----");
-        }
-        System.out.println("领导：" + this.getName());
-        this.employers.forEach(employer -> {
-            employer.display(index + 1);
-        });
-    }
-}
-
-class Engineer3 extends Employer2 {
+class Engineer3 extends Employee3 {
 
     public Engineer3(String name) {
         this.setName(name);
     }
 
     @Override
+    public void add(Employee3 employee) {
+        // 没有下属
+    }
+
+    @Override
+    public void remove(Employee3 employee) {
+        // 没有下属
+    }
+
+    @Override
     public void display(int index) {
         for(int i = 0; i < index; i++) {
             System.out.print("----");
@@ -191,4 +191,6 @@ class Engineer3 extends Employer2 {
         System.out.println("工程师：" + this.getName());
     }
 }
+
+
 
