@@ -36,12 +36,12 @@ class ProvincialLeaderVistor implements Vistor {
 
     @Override
     public void visit(AlibabaCompany alibabaCompany) {
-        System.out.println(alibabaCompany.entertainProvincialLeader());
+        System.out.println(alibabaCompany.entertainBelowProvincialLeader("省领导"));
     }
 
     @Override
     public void visit(TencentCompany tencentCompany) {
-        System.out.println(tencentCompany.entertainProvincialLeader());
+        System.out.println(tencentCompany.entertainBelowProvincialLeader("省领导"));
     }
 }
 
@@ -52,12 +52,25 @@ class NationalLeaderVistor implements Vistor {
 
     @Override
     public void visit(AlibabaCompany alibabaCompany) {
-        System.out.println(alibabaCompany.entertainNationalLeader());
+        System.out.println(alibabaCompany.entertainAboveNationalLeader("省领导"));
     }
 
     @Override
     public void visit(TencentCompany tencentCompany) {
-        System.out.println(tencentCompany.entertainNationalLeader());
+        System.out.println(tencentCompany.entertainAboveNationalLeader("郭嘉领导"));
+    }
+}
+
+class CityLeaderVistor implements Vistor {
+
+    @Override
+    public void visit(AlibabaCompany alibabaCompany) {
+        System.out.println(alibabaCompany.entertainBelowProvincialLeader("市领导"));
+    }
+
+    @Override
+    public void visit(TencentCompany tencentCompany) {
+        System.out.println(tencentCompany.entertainBelowProvincialLeader("市领导"));
     }
 }
 
@@ -78,12 +91,12 @@ class AlibabaCompany extends Company {
         vistor.visit(this);
     }
 
-    public String entertainProvincialLeader() {
-        return "Alibaba 接待省领导：十菜一汤";
+    public String entertainBelowProvincialLeader(String leader) {
+        return "Alibaba 接待" + leader + "：十菜一汤";
     }
 
-    public String entertainNationalLeader() {
-        return "Alibaba 接待郭嘉领导：十四菜两汤";
+    public String entertainAboveNationalLeader(String leader) {
+        return "Alibaba 接待" + leader + "：十四菜两汤";
     }
 
 }
@@ -98,12 +111,12 @@ class TencentCompany extends Company {
         vistor.visit(this);
     }
 
-    public String entertainProvincialLeader() {
-        return "Tencent 接待省领导：八菜一汤";
+    public String entertainBelowProvincialLeader(String leader) {
+        return "Tencent 接待" + leader + "：八菜一汤";
     }
 
-    public String entertainNationalLeader() {
-        return "Tencent 接待郭嘉领导：十六菜两汤";
+    public String entertainAboveNationalLeader(String leader) {
+        return "Tencent 接待" + leader + "：十六菜两汤";
     }
 }
 
