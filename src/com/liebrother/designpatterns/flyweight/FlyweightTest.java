@@ -27,6 +27,9 @@ interface ICrayon {
 
 }
 
+/**
+ * 蜡笔
+ */
 class Crayon implements ICrayon {
 
     private String color;
@@ -41,6 +44,9 @@ class Crayon implements ICrayon {
     }
 }
 
+/**
+ * 笔袋
+ */
 class CrayonFactory {
 
     private Map<String, ICrayon> data = new HashMap<>();
