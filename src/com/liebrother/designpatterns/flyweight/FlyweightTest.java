@@ -10,37 +10,24 @@ import java.util.Map;
 public class FlyweightTest {
 
     public static void main(String[] args) {
-        // 画熊猫
-        ICrayon whiteCrayon = new Crayon("白色");
-        whiteCrayon.draw();
-
-        ICrayon blackCrayon = new Crayon("黑色");
-        blackCrayon.draw();
-        
+        drawByXiaoMing();
+        drawByXiaoHong();
     }
 
-}
+    public static void drawByXiaoMing() {
+        ICrayon greenCrayon =  CrayonFactory.getCrayon("绿色");
+        greenCrayon.draw("草");
 
-interface ICrayon {
-
-    void draw();
-
-}
-
-/**
- * 蜡笔
- */
-class Crayon implements ICrayon {
-
-    private String color;
-
-    public Crayon(String color) {
-        this.color = color;
+        ICrayon grayCrayon = CrayonFactory.getCrayon("灰色");
+        grayCrayon.draw("路");
     }
 
-    @Override
-    public void draw() {
-        System.out.println("用" + this.color + "蜡笔画");
+    public static void drawByXiaoHong() {
+        ICrayon blueCrayon = CrayonFactory.getCrayon("蓝色");
+        blueCrayon.draw("蓝天");
+
+        ICrayon greenCrayon = CrayonFactory.getCrayon("绿色");
+        greenCrayon.draw("树");
     }
 }
 
@@ -49,9 +36,9 @@ class Crayon implements ICrayon {
  */
 class CrayonFactory {
 
-    private Map<String, ICrayon> data = new HashMap<>();
+    private static Map<String, ICrayon> data = new HashMap<>();
 
-    public ICrayon getCrayon(String color) {
+    public static ICrayon getCrayon(String color) {
         if (data.containsKey(color)) {
             return data.get(color);
         }
