@@ -12,7 +12,7 @@ public class FacadeTest {
 }
 
 /**
- * 需求方
+ * 需求同学
  */
 class Demander {
 
@@ -29,7 +29,7 @@ class Demander {
 
 
 /**
- * 需求方
+ * 需求同学
  */
 class Demander2 {
 
