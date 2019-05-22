@@ -14,12 +14,18 @@ public class ProxyTest {
 
 }
 
+/**
+ * 互联网
+ */
 interface Internet {
 
     String access(String domain);
 
 }
 
+/**
+ * 世界网络
+ */
 class WorldNetwork implements Internet {
 
     @Override
@@ -30,6 +36,9 @@ class WorldNetwork implements Internet {
 
 }
 
+/**
+ * 中国网络（就是代理）
+ */
 class ChinnessNetwork implements Internet {
 
     private Set<String> disable;
@@ -52,4 +61,3 @@ class ChinnessNetwork implements Internet {
         return internet.access(domain);
     }
 }
-
